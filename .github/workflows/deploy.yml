@@ -20,7 +20,18 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_ASSET_PREFIX: https://${{ secrets.S3_BUCKET }}.s3.amazonaws.com
+          
+      - name: Configurar credenciales AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
 
+      - name: Subir _next a S3
+        run: aws s3 sync out/_next "s3://${{ secrets.S3_BUCKET }}/_next" --delete
+        
       - name: Configurar SSH
         run: |
           mkdir -p ~/.ssh
