@@ -1,10 +1,9 @@
-/** @type {import('next').NextConfig} */
-const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || undefined;
+import type { NextConfig } from "next";
 
-const nextConfig = {
-  output: 'export',               // genera el sitio estático en out/
-  assetPrefix,                    // /_next/* se pide al bucket S3
-  images: { unoptimized: true },  // necesario con output: 'export'
+const nextConfig: NextConfig = {
+  output: "export",
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || undefined,
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
