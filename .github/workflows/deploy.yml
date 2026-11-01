@@ -18,6 +18,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          NEXT_PUBLIC_ASSET_PREFIX: https://${{ secrets.S3_BUCKET }}.s3.amazonaws.com
 
       - name: Configurar SSH
         run: |
